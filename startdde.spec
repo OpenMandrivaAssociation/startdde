@@ -7,37 +7,36 @@
 %endif
 
 Name:           startdde
-Version:        5.10.1
-Release:        %autorelease
+Version:        6.0.15
+Release:        1
 Summary:        Starter of deepin desktop environment
 # migrated to SPDX
 License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/startdde
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-Run-lspci-with-full-path-on-Fedora.patch
-ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 %{arm}}
+#Patch0:         0001-Run-lspci-with-full-path-on-Fedora.patch
 
 BuildRequires:  compiler(go-compiler)
 BuildRequires:  golang(github.com/linuxdeepin/dde-api/dxinput)
-BuildRequires:  golang(github.com/linuxdeepin/go-lib)
+BuildRequires:  golang-deepin-go-lib
 BuildRequires:  golang(github.com/godbus/dbus)
-BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
+BuildRequires:  golang-github-linuxdeepin-go-x11-client
 BuildRequires:  golang(github.com/davecgh/go-spew/spew)
 BuildRequires:  golang(golang.org/x/xerrors)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
 BuildRequires:  golang
 BuildRequires:  jq
-BuildRequires:  glib2-devel
+BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  libXcursor-devel
-BuildRequires:  libXfixes-devel
-BuildRequires:  gtk3-devel
-BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  libgnome-keyring-devel
-BuildRequires:  alsa-lib-devel
+BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(gnome-keyring-1)
+BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  libsecret-devel
+BuildRequires:  pkgconfig(libsecret-1)
 
 Provides:       x-session-manager
 Requires:       %{dde_prefix}-daemon
@@ -99,6 +98,3 @@ fi
 %{_prefix}/lib/deepin-daemon/greeter-display-daemon
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/dsg/
-
-%changelog
-%autochangelog
